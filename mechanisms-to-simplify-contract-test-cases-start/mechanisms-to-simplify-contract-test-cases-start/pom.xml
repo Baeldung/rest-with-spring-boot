@@ -47,7 +47,7 @@
 
         <dependency>
             <groupId>com.baeldung</groupId>
-            <artifactId>mechanisms-to-simplify-contract-test-cases-end--commons-test</artifactId>
+            <artifactId>mechanisms-to-simplify-contract-test-cases-start--commons-test</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
