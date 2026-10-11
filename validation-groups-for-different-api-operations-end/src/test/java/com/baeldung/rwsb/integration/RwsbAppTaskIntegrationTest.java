@@ -763,18 +763,18 @@ public class RwsbAppTaskIntegrationTest {
     // PUT - update assignee - validations
 
     @Test
-    void givenPreloadedData_whenUpdateAssigneeWithNullAssignee_thenBadRequest() {
+    void givenPreloadedData_whenUpdateAssigneeWithNullAssignee_thenOk() {
         TaskDto updatedTaskBody = new TaskDto(null, null, "Test - Assignee Task X", "Description of task", LocalDate.of(2030, 06, 01), null, 1L, null, 10);
 
         webClient.put()
-            .uri("/tasks/1")
+            .uri("/tasks/1/assignee")
             .body(Mono.just(updatedTaskBody), TaskDto.class)
             .exchange()
             .expectStatus()
-            .isBadRequest()
+            .isOk()
             .expectBody()
-            .jsonPath("$.errors..field")
-            .value(hasItem("status"));
+            .jsonPath("$.assignee")
+            .isEmpty();
     }
 
     @Test
@@ -782,13 +782,13 @@ public class RwsbAppTaskIntegrationTest {
         TaskDto updatedTaskBody = new TaskDto(null, null, "Test - Assignee Task X", "Description of task", LocalDate.of(2030, 06, 01), null, 1L, new WorkerDto(null, null, null, null), 10);
 
         webClient.put()
-            .uri("/tasks/1")
+            .uri("/tasks/1/assignee")
             .body(Mono.just(updatedTaskBody), TaskDto.class)
             .exchange()
             .expectStatus()
             .isBadRequest()
             .expectBody()
             .jsonPath("$.errors..field")
-            .value(hasItem("status"));
+            .value(hasItem("assignee.id"));
     }
 }
